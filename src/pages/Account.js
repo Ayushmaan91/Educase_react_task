@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Account() {
+  const navigate = useNavigate();
+  const [userName, setUserName] = useState('Marry Doe');
+  const [userEmail, setUserEmail] = useState('Marry@Gmail.Com');
+
+  useEffect(() => {
+    const storedName = localStorage.getItem('popx_user_name');
+    const storedEmail = localStorage.getItem('popx_user_email');
+    if (storedName) setUserName(storedName);
+    if (storedEmail) setUserEmail(storedEmail);
+  }, []);
+
   return (
     <div className="container account-container">
-      <div className="account-header">
-        Account Settings
+      <div className="account-header" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+        <span style={{ cursor: 'pointer', fontSize: '18px', display: 'flex', alignItems: 'center' }} onClick={() => navigate(-1)}>&larr;</span>
+        <span>Account Settings</span>
       </div>
       
       <div className="account-content">
@@ -20,8 +33,8 @@ function Account() {
             </div>
           </div>
           <div className="profile-info">
-            <h3>Marry Doe</h3>
-            <p>Marry@Gmail.Com</p>
+            <h3>{userName}</h3>
+            <p>{userEmail}</p>
           </div>
         </div>
         
